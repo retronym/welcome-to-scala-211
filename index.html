@@ -225,13 +225,25 @@
             * Scales up & out
         </script>
     </section>
-    
-    <section data-markdown>
-        <script type="text/template">
-            ### Actors with Lambdas
-            
-        </script>
-    </section>
+
+            <!-- this indentation is needed to work around a crazy markdown bug -->
+            <section data-markdown>
+                <script type="text/template">
+                    ### Actors with Lambdas
+        
+                        public static class Greeter extends AbstractActor {
+                            String greeting = "";
+                
+                            @Override public PartialFunction<Object, BoxedUnit> receive() {
+                                return ReceiveBuilder.
+                                    match(WhoToGreet.class, message -> greeting = "hello, " + message.who).
+                                    match(Greet.class, message -> sender().tell(new Greeting(greeting), self())).
+                                    matchAny(this::unhandled).
+                                    build();
+                            }
+                        }
+                </script>
+            </section>
     
     <section data-markdown>
         <script type="text/template">
