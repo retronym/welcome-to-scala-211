@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Going Reactive with Java 8</title>
+
+    <meta name="description" content="Java 8's lambdas make building Reactive applications a whole lot easier and cleaner. Through copious code examples this session will show you how to build event-driven, scalable, resilient, and responsive applications with Java 8, Play Framework and Akka. On the web side you will learn about using lambdas for async & non-blocking requests & WebSockets. You will also learn how the actor model in Akka pairs well with lambdas to create an event-driven foundation that provides concurrency, clustering and fault-tolerance.">
+    <meta name="author" content="Typesafe">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+        .reveal .controls {
+            bottom: auto;
+            top: 0px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<aside style="display: block; position: fixed; bottom: 5px; left: 10px; z-index: 30;">
+    <a href="http://typesafe.com"><img src="assets/logo.png"></a>
+</aside>
+
+<aside style="display: block; position: fixed; bottom: 10px; right: 10px; z-index: 30;">
+    <a href="https://twitter.com/typesafe" class="twitter-follow-button" data-show-count="false" data-lang="en" data-size="large">Follow @typesafe</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</aside>
+
+<div class="reveal">
+
+<div class="slides">
+
+    <section>
+        <h2>Going Reactive with Java 8</h2>
+        <p>
+            <small><a href="http://www.typesafe.com">Typesafe</a> ~ <a href="http://twitter.com/typsafe">@typesafe</a></small>
+        </p>
+    </section>
+    
+    <section>
+        <h2>Users Want</h2>
+        <ul>
+            <li class="fragment">In-Sync Data</li>
+            <li class="fragment">Real-time Collaboration</li>
+            <li class="fragment">Instant Feedback</li>
+            <li class="fragment">To Not Wait</li>
+        </ul>
+    </section>
+    
+    <section data-markdown>
+        <script type="text/template">
+            ## Users Want Reactive Apps
+            ### www.ReactiveManifesto.org
+    
+            <img src="assets/full-reactive.png" style="background-color: #ffffff">
+        </script>
+    </section>
+    
+    <section>
+        <h2>Reactive Web Apps with Play Framework</h2>
+    
+        <ul>
+            <li>Reactive Requests</li>
+            <li>Reactive Composition</li>
+            <li>Reactive Push</li>
+            <li>2-Way Reactive</li>
+        </ul>
+    </section>
+    
+    <section>
+        <h2>Reactive Requests</h2>
+        <img src="assets/reactive-requests.png">
+    </section>
+
+    <section data-markdown>
+        <script type="text/template">
+            ### Synchronous Request
+            
+            <small>Useful for requests that don't have anything to not block on</small>
+    
+                public static Result syncFoo() {
+                    return ok("sync foo");
+                }
+    
+            ### Asynchronous Request
+                    
+            <small>Under the covers Play implements all requests in this way</small>
+    
+                public static F.Promise<Result> asyncFoo() {
+                    return F.Promise.promise(() -> ok("async foo"));
+                }
+        </script>
+    </section>
+    
+    <section data-markdown>
+        <script type="text/template">
+            ### Reactive Request (Async + Non-Blocking)
+            
+            <small>Needs to have something to not block on</small>
+    
+                public static F.Promise<Result> asyncNonBlockingFoo() {
+                    return F.Promise.delayed(() -> ok("async non-blocking foo"), 5, TimeUnit.SECONDS);
+                }
+        </script>
+    </section>
+    
+    <section data-markdown>
+        <script type="text/template">
+            ### Reactive Requests
+            
+            <small>Two chained requests (client to server & server to typesafe.com) - both async & non-blocking</small>
+    
+                public static F.Promise<Result> reactiveRequest() {
+                    F.Promise<WS.Response> typesafePromise = WS.url("http://www.typesafe.com").get();
+                    return typesafePromise.map(response -> ok(response.getBody()));
+                }
+        </script>
+    </section>
+    
+            <!-- this indentation is needed to work around a crazy markdown bug -->
+            <section data-markdown>
+                <script type="text/template">
+                    ### Reactive Composition
+                            
+                    <small>Three requests, two in parrallel (depending on thread availability), - all async & non-blocking</small>
+            
+                        public static F.Promise<Result> reactiveComposition() {
+                            final F.Promise<WS.Response> twitterPromise = WS.url("http://www.twitter.com").get();
+                            final F.Promise<WS.Response> typesafePromise = WS.url("http://www.typesafe.com").get();
+                
+                            return twitterPromise.flatMap((twitter) ->
+                                typesafePromise.map((typesafe) ->
+                                    ok(twitter.getBody() + typesafe.getBody())));
+                        }
+                </script>
+            </section>
+
+            <!-- this indentation is needed to work around a crazy markdown bug -->
+            <section data-markdown>
+                <script type="text/template">
+                    ### Reactive Push with SSE
+            
+                    <small>Async & Non-Blocking Server to Client Push</small>
+                    
+                    <small>Java Controller</small>
+                    
+                        public static Result events() {
+                            EventSource eventSource = new EventSource() {
+                                public void onConnected() {
+                                    sendData("hello");
+                                }
+                            };
+                            return ok(eventSource);
+                        }
+                    
+                    <small>CoffeeScript Client</small>
+                            
+                        events = new EventSource("/events")
+                        events.onmessage = (e) ->
+                            alert(e.data)
+                </script>
+            </section>
+
+            <!-- this indentation is needed to work around a crazy markdown bug -->
+            <section data-markdown>
+                <script type="text/template">
+                    ### 2-Way Reactive with WebSockets
+            
+                    <small>Bi-directional reactive push</small>
+                    
+                    <small>Java Controller with Java 8 Method Reference</small>
+                    
+                        public static WebSocket<String> echo() {
+                            return new WebSocket<String>() {
+                                public void onReady(final In<String> in, final Out<String> out) {
+                                    in.onMessage(out::write);
+                                }
+                            };
+                        }
+                    
+                    <small>CoffeeScript Client</small>
+                                
+                        ws = new WebSocket("ws://localhost:9000/echo")
+                        ws.onmessage = (message) ->
+                            console.log(message.data)
+                        ws.onopen = () ->
+                            ws.send("foo")
+                </script>
+            </section>
+    
+    
+    <section data-markdown>
+        <script type="text/template">
+            ### Akka - Actor-based Concurrency & Clustering
+    
+            <img src="assets/akka-actors.png" style="background-color: #ffffff; width: 700px;">
+    
+            * Event-Driven
+            * Non-request based lifecycle
+            * Managed Concurrency
+            * Isolated Failure Handling (Supervision)
+            * Scales up & out
+        </script>
+    </section>
+    
+    <section data-markdown>
+        <script type="text/template">
+            ### Actors with Lambdas
+            
+        </script>
+    </section>
+    
+    <section data-markdown>
+        <script type="text/template">
+            ### Demo: Reactive Stocks Java 8
+    
+            *** TODO ***
+        </script>
+    </section>
+    
+    <section data-markdown>
+        <script type="text/template">
+            ### Get Started
+    
+            *** TODO ***
+        </script>
+    </section>
+
+</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
