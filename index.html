@@ -52,9 +52,24 @@
 <div class="reveal">
 
 <div class="slides">
-
     <section>
-        <h2>Going Reactive with Java 8</h2>
+        <img src="assets/sponsor1.png" width="1024px" height="800px"></img>
+    </section>
+    <section>
+        <img src="assets/sponsor2.png" width="1024px" height="800px"></img>
+    </section>
+    <section>
+        <h2>Go Reactive with Typesafe</h2>
+
+        <p>
+            Jason Zaugg, Scala Team
+        </p>
+        <p>
+            <a href="http://twitter.com/retronym">@retronym</a>
+        </p>
+        <p>
+            <a href="http://github.com/retronym">github.com/retronym</a>
+        </p>
         <p>
             <small><a href="http://www.typesafe.com">Typesafe</a> ~ <a href="http://twitter.com/typsafe">@typesafe</a></small>
         </p>
@@ -66,7 +81,7 @@
             <li class="fragment">In-Sync Data</li>
             <li class="fragment">Real-time Collaboration</li>
             <li class="fragment">Instant Feedback</li>
-            <li class="fragment">To Not Wait</li>
+            <li class="fragment">No Waiting</li>
         </ul>
     </section>
     
@@ -78,7 +93,70 @@
             <img src="assets/full-reactive.png" style="background-color: #ffffff">
         </script>
     </section>
+
+    <section>
+        <h2>Typesafe Reactive Platform</h2>
     
+        <ul>
+            <li>Play: Reactive Web Apps</li>
+            <li>Akka: Event Driven, Fault Tolerant Concurrency</li>
+            <li>JVM: Server Runtime</li>
+            <li>Java, Scala: Language options</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Hot off the presses</h2>
+        <ul>
+            <li>Java 8 released yesterday!</li>
+            <li>Scala 2.11.0 <a href="http://scala-lang.org/news/2014/03/06/release-notes-2.11.0-RC1.html">imminent</a></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Java or Scala?</h2>
+    
+        <ul>
+            <li>Java 8 lambdas simplify reactive programming</li>
+            <li>Scala can reduce boilerplate / increase joy even further</li>
+            <li>Both are first class citizens</li>
+            <li>You decide!</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Reactive Building Block: Functional Programming</h2>
+    
+        <ul>
+            <li>Favour immutability</li>
+            <li>Lambdas to glue apps together (guided by types!)</li>
+            <li>Uniform API for FP on collections and Futures (learn once, code anywhere!)</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Reactive Building Block: Futures</h2>
+    
+        <ul>
+            <li>Start with j.u.c.Future</li>
+            <li>+ non-blocking composition</li>
+            <li>scala.concurrent.Future or j.u.c.CompletableFuture</li>
+            <li>related term: Promise</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Reactive Building Block: Actors</h2>
+    
+        <ul>
+            <li>Encapsulates state</li>
+            <li>Only contactable via its message queue</li>
+            <li>Lightweight (can have millions in a JVM)</li>
+            <li>Organized in a supervisor heirarchy (policy based failure recovery)</li>
+            <li>Configurable dispatchers and mailboxes</li>
+        </ul>
+    </section>
+
     <section>
         <h2>Reactive Web Apps with Play Framework</h2>
     
@@ -99,7 +177,7 @@
         <script type="text/template">
             ### Synchronous Request
             
-            <small>Useful for requests that don't have anything to not block on</small>
+            <small>Useful for requests that have nothing to not block on</small>
     
                 public static Result syncFoo() {
                     return ok("sync foo");
@@ -119,7 +197,7 @@
         <script type="text/template">
             ### Reactive Request (Async + Non-Blocking)
             
-            <small>Needs to have something to not block on</small>
+            <small>Possible use case: rate limiting an API</small>
     
                 public static F.Promise<Result> asyncNonBlockingFoo() {
                     return F.Promise.delayed(() -> ok("async non-blocking foo"), 5, TimeUnit.SECONDS);
@@ -158,10 +236,29 @@
                 </script>
             </section>
 
+
             <!-- this indentation is needed to work around a crazy markdown bug -->
             <section data-markdown>
                 <script type="text/template">
-                    ### Reactive Push with SSE
+                    ### Reactive Composition with scala-async
+                            
+                    <small>Clean, pseudo-blocking DSL for Reactive composition</small>
+            
+                        def reactiveCompositionAsync: Future[String] {
+                          def fetch(url: String): Future[String] = WS.url(url).get().wrapped()
+                          async {
+                            val body1 = fetch("http://www.twitter.com")
+                            val body2 = fetch("http://www.typesafe.com")
+                            await(body1) + await(body2)
+                          }
+                        }
+                </script>
+            </section>
+
+            <!-- this indentation is needed to work around a crazy markdown bug -->
+            <section data-markdown>
+                <script type="text/template">
+                    ### Reactive Push
             
                     <small>Async & Non-Blocking Server to Client Push</small>
                     
@@ -249,19 +346,20 @@
         <script type="text/template">
             ### Demo: Reactive Stocks (Java 8)
     
-            * Get the Activator Template: *** TODO ***
+            * Get the Activator Template: <a href="https://typesafe.com/activator/template/reactive-stocks-java8">https://typesafe.com/activator/template/reactive-stocks-java8</a>
             * Akka Actors for thread-safe state and non-request based events
             * Play Framework for Reactive Composition, Reactive Push, and a JavaScript UI
         </script>
     </section>
-    
+
     <section data-markdown>
         <script type="text/template">
-            ### Get Started with Activator
-    
-            * Hello Akka (Java 8)  *** TODO ***
-            * Finite State Machines with Actors and Java 8  *** TODO ***
-            * Go Reactive with Java 8 and Play Framework *** TODO ***
+            ### The Future is the Reactive JVM
+            * JVM is the best foundation for modern, reactive software
+            * Healthy choice of two statically typed languages
+            * Prediction: ThreadLocal backed frameworks will become a legacy burden
+            * Prediction: Node.JS running on JVM/Nashorn to bridge to JVM ecosystem
+            * Prediction: Expect innovation around Reactive Streams in 2014
         </script>
     </section>
 
