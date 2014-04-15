@@ -4,9 +4,11 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Going Reactive with Java 8</title>
+    <title>Welcome to Scala 2.11</title>
 
-    <meta name="description" content="Java 8's lambdas make building Reactive applications a whole lot easier and cleaner. Through copious code examples this session will show you how to build event-driven, scalable, resilient, and responsive applications with Java 8, Play Framework and Akka. On the web side you will learn about using lambdas for async & non-blocking requests & WebSockets. You will also learn how the actor model in Akka pairs well with lambdas to create an event-driven foundation that provides concurrency, clustering and fault-tolerance.">
+    <meta name="description" content="The latest release of Scala is imminent! It represents our efforts
+    to make the platform faster, smaller, and more stable. Find out more about what is new, how to
+    upgrade, and what's in store for the future.">
     <meta name="author" content="Typesafe">
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,13 +55,7 @@
 
 <div class="slides">
     <section>
-        <img src="assets/sponsor1.png" width="1024px" height="800px"></img>
-    </section>
-    <section>
-        <img src="assets/sponsor2.png" width="1024px" height="800px"></img>
-    </section>
-    <section>
-        <h2>Go Reactive with Typesafe</h2>
+        <h2>Welcome to Scala 2.11</h2>
 
         <p>
             Jason Zaugg, Scala Team
@@ -74,295 +70,179 @@
             <small><a href="http://www.typesafe.com">Typesafe</a> ~ <a href="http://twitter.com/typsafe">@typesafe</a></small>
         </p>
     </section>
-    
-    <section>
-        <h2>Users Want</h2>
-        <ul>
-            <li class="fragment">In-Sync Data</li>
-            <li class="fragment">Real-time Collaboration</li>
-            <li class="fragment">Instant Feedback</li>
-            <li class="fragment">No Waiting</li>
-        </ul>
-    </section>
-    
-    <section data-markdown>
-        <script type="text/template">
-            ## Users Want Reactive Apps
-            ### www.ReactiveManifesto.org
-    
-            <img src="assets/full-reactive.png" style="background-color: #ffffff">
-        </script>
-    </section>
 
     <section>
-        <h2>Typesafe Reactive Platform</h2>
-    
+        <h2>2.11 Themes</h2>
         <ul>
-            <li>Play: Reactive Web Apps</li>
-            <li>Akka: Event Driven, Fault Tolerant Concurrency</li>
-            <li>JVM: Server Runtime</li>
-            <li>Java, Scala: Language options</li>
+            <li class="fragment0">Faster</li>
+            <li class="fragment0">Smaller</li>
+            <li class="fragment0">More stable</li>
         </ul>
     </section>
 
     <section>
-        <h2>Hot off the presses</h2>
+        <h2>Faster: Collections</h2>
         <ul>
-            <li>Java 8 released yesterday!</li>
-            <li>Scala 2.11.0 <a href="http://scala-lang.org/news/2014/03/06/release-notes-2.11.0-RC1.html">imminent</a></li>
+            <li class="fragment0">Faster <a href="http://github.com/scala/scala/commit/c5962b1871f8093fe200fe0c47cd9c202b07a8f9">map, flatMap</a> on List</li>
+
+            <li class="fragment0"><a href="http://github.com/scala/scala/commit/f84acc99cd46e43f0ce6c466534882390459d9b5">Plug</a> memory leak in Stream</li>
+
+            <li class="fragment0">Faster Maps:
+              <a href="http://github.com/scala/scala/commit/992b90ebcc8cd3415c288a7258015ec35ed9098e">AnyRefMap</a> and <a href="http://github.com/scala/scala/commit/05aedd936e7e7bcf0fa2443abd58b39732f173a9">LongMap</a> avoid the tax of genericity
+            </li>
         </ul>
     </section>
 
     <section>
-        <h2>Java or Scala?</h2>
-    
+        <h2>Faster: Incremental compilation</h2>
         <ul>
-            <li>Java 8 lambdas simplify reactive programming</li>
-            <li>Scala can reduce boilerplate / increase joy even further</li>
-            <li>Both are first class citizens</li>
-            <li>You decide!</li>
+            <li class="fragment0">Idea: Index the identifiers in each file</li>
+            <li class="fragment0"><a href="https://github.com/sbt/sbt/issues/1010">Exploit</a> this to prune compilation batches</li>
+            <li class="fragment0">Works with 2.10.x and 2.11.x</li>
+            <li class="fragment0">Future fixes for some corner cases only in 2.11.x</li>
         </ul>
     </section>
 
     <section>
-        <h2>Reactive Building Block: Functional Programming</h2>
-    
+        <h2>Faster: Batch Compilation</h2>
+        For early adopters: faster compiler backend
         <ul>
-            <li>Favour immutability</li>
-            <li>Lambdas to glue apps together (guided by types!)</li>
-            <li>Uniform API for FP on collections and Futures (learn once, code anywhere!)</li>
+            <li class="fragment0"><code>-Ybackend:GenBCode</code>: streamlined, paralellizable</li>
+            <li class="fragment0"><code>-Ydelambdafy:method</code>: smarter compilation of lambdas</li>
+            <li class="fragment0">Improvements scheduled for 2.11.x</li>
+            <li class="fragment0">Enabled by default in 2.12</li>
         </ul>
     </section>
 
     <section>
-        <h2>Reactive Building Block: Futures</h2>
-    
+        <h2>Faster: Batch compilation</h2>
         <ul>
-            <li>Start with j.u.c.Future</li>
-            <li>+ non-blocking composition</li>
-            <li>scala.concurrent.Future or j.u.c.CompletableFuture</li>
-            <li>related term: Promise</li>
+            <li class="fragment0">Profiling and tuning the compiler</li>
+            <li class="fragment0">Big wins seem elusive...</li>
+            <li class="fragment0">... but there are gains on offer.</li>
         </ul>
     </section>
 
     <section>
-        <h2>Reactive Building Block: Actors</h2>
-    
+        <h2>Faster: Batch compilation</h2>
+        <p><img src="assets/pacino.png"/></p>
+        <blockquote>
+        <p>The inches we need are everywhere around us. They are in every break of the game every minute, every second.
+   
+        <p>On this team, we fight for that inch.
+        </blockquote>
+    </section>
+
+    <section>
+        <h2>Faster: Batch compilations</h2>
         <ul>
-            <li>Encapsulates state</li>
-            <li>Only contactable via its message queue</li>
-            <li>Lightweight (can have millions in a JVM)</li>
-            <li>Organized in a supervisor heirarchy (policy based failure recovery)</li>
-            <li>Configurable dispatchers and mailboxes</li>
+            <li class="fragment0">
+              <a href="http://github.com/scala/scala/pull/2335">#2335</a>
+              <a href="http://github.com/scala/scala/pull/2925">#2925</a>
+              <a href="http://github.com/scala/scala/pull/3084">#3084</a>
+              <a href="http://github.com/scala/scala/pull/3089">#3089</a>
+              <a href="http://github.com/scala/scala/pull/3095">#3095</a>
+              <a href="http://github.com/scala/scala/pull/3444">#3444</a>
+              <a href="http://github.com/scala/scala/pull/3447">#3447</a>
+              <a href="http://github.com/scala/scala/pull/3448">#3448</a>
+              <a href="http://github.com/scala/scala/pull/3449">#3449</a>
+              <a href="http://github.com/scala/scala/pull/3445">#3445</a>
+              <a href="http://github.com/scala/scala/pull/3494">#3494</a>
+              <a href="http://github.com/scala/scala/pull/3494">#3552</a>
+            </li>
+            <li class="fragment0">10-20% improvement</li>
+            <li class="fragment0">The battle of inches will be continued in 2.11.x.</li>
         </ul>
     </section>
 
     <section>
-        <h2>Reactive Web Apps with Play Framework</h2>
-    
+        <h2>Smaller: Standard Library</h2>
         <ul>
-            <li>Reactive Requests</li>
-            <li>Reactive Composition</li>
-            <li>Reactive Push</li>
-            <li>2-Way Reactive</li>
+            <li class="fragment0">Reduced <code>scala-library.ja<code></code>r</code> by spinning out modules for <code>-xml</code>, <code>-parser-combinators</code>, <code>-continuations</code></li>
+
+            <li class="fragment0">Modules are plain-old-SBT projects in dedicated git repos</li>
+            <ul>
+                <li class="fragment0">Fosters community contributions</li>
+            </ul>
+
+            <li class="fragment0">Sample <a href="https://github.com/scala/scala-module-dependency-sample‎
+">build configuration</a> for Maven and SBT</li>
         </ul>
     </section>
-    
+
     <section>
-        <h2>Reactive Requests</h2>
-        <img src="assets/reactive-requests.png">
+        <h2>Smaller: Collections</h2>
+        <ul>
+            <li class="fragment0"><a href="http://github.com/scala/scala/commit/3cc99d7b4aa43b1b06cc837a55665896993235fc">Deprecates</a> parts of collections known to be problematic (<code>*Proxy</code>, <code>Synchronized*</code>, <code>*Forwarder</code>, <code>s.c.script._</code>, <code>Immutable*Adaptor</code></li>
+
+            <li class="fragment0"><a href="http://github.com/scala/scala/commit/3cc99d7b4aa43b1b06cc837a55665896993235fc">Deprecates</a> overriding or inheritance from parts of the collections that were not safe extension points</li>
+
+            <li class="fragment0"><a href="https://github.com/scala/scala/pull/3191">Remove views over parallel collection</a> to simplify the heirarchy and enable <a href="https://github.com/scala/scala/pull/3191">important bug fixes.</a></li>
+        </ul>
     </section>
 
-    <section data-markdown>
-        <script type="text/template">
-            ### Synchronous Request
+    <section>
+        <h2>Smaller: Compiler</h2>
+        <ul>
+            <li class="fragment0">Removed the experimental support for targetting .NET</li>
+            <li class="fragment0">Remove legacy pattern matcher, bytecode emitter</li>
+            <li class="fragment0">Search and destroy mission for ~5000 chunks of dead code. <a href="https://github.com/scala/scala/pull/1648/files">#1648</a></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Stabler: Community Build</h2>
+        <ul>
+            <li class="fragment0">Idea: use the open source ecosystem as a regression suite</li>
+            <li class="fragment0">Tooling rewires depenedencies of builds</li>
+            <li class="fragment0"><a href="https://jenkins-dbuild.typesafe.com:8499/job/Community-2.11.x/">Daily build</a> of almost 1M LOC (specs, scalatest, akka, play, slick, shapeless, spray ...)</li>
+            <li class="fragment0">Helped us spot critical bugs before the release</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Stabler: Bug fixin'</h2>
+        <ul>
+            <li><a href="https://issues.scala-lang.org/issues/?jql=project%20%3D%20SI%20and%20fixVersion%20%3E%3D%20%22Scala%202.11.0-M1%22%20and%20fixVersion%20%3C%3D%20%22Scala%202.11.0-RC4%22%20and%20resolution%20%3D%20fixed">613</a> tickets closed exclusive to 2.11.0</li>
+            <li><a href="https://issues.scala-lang.org/browse/SI-261">SI-261 (!)</a> private vals in traits depend on composition order</li>
             
-            <small>Useful for requests that have nothing to not block on</small>
-    
-                public static Result syncFoo() {
-                    return ok("sync foo");
-                }
-    
-            ### Asynchronous Request
-                    
-            <small>Under the covers Play implements all requests in this way</small>
-    
-                public static F.Promise<Result> asyncFoo() {
-                    return F.Promise.promise(() -> ok("async foo"));
-                }
-        </script>
-    </section>
-    
-    <section data-markdown>
-        <script type="text/template">
-            ### Reactive Request (Async + Non-Blocking)
+            <li><a href="https://issues.scala-lang.org/browse/SI-7296">SI-7296</a> Case classes with &gt; 22 parameters are now allowed.</li>
+            <li><a href="https://issues.scala-lang.org/browse/SI-3346">SI-3346</a> Implicit arguments of implicit conversions now guide type inference.</li>
+            <li><a href="https://github.com/scala/scala/pull/3037">#3037</a> Experimental support for SAM synthesis.</li>
             
-            <small>Possible use case: rate limiting an API</small>
-    
-                public static F.Promise<Result> asyncNonBlockingFoo() {
-                    return F.Promise.delayed(() -> ok("async non-blocking foo"), 5, TimeUnit.SECONDS);
-                }
-        </script>
-    </section>
-    
-    <section data-markdown>
-        <script type="text/template">
-            ### Reactive Requests
-            
-            <small>Two chained requests (client to server & server to typesafe.com) - both async & non-blocking</small>
-    
-                public static F.Promise<Result> reactiveRequest() {
-                    F.Promise<WS.Response> typesafePromise = WS.url("http://www.typesafe.com").get();
-                    return typesafePromise.map(response -> ok(response.getBody()));
-                }
-        </script>
-    </section>
-    
-            <!-- this indentation is needed to work around a crazy markdown bug -->
-            <section data-markdown>
-                <script type="text/template">
-                    ### Reactive Composition
-                            
-                    <small>Three requests, two in parrallel (depending on thread availability), - all async & non-blocking</small>
-            
-                        public static F.Promise<Result> reactiveComposition() {
-                            final F.Promise<WS.Response> twitterPromise = WS.url("http://www.twitter.com").get();
-                            final F.Promise<WS.Response> typesafePromise = WS.url("http://www.typesafe.com").get();
-                
-                            return twitterPromise.flatMap((twitter) ->
-                                typesafePromise.map((typesafe) ->
-                                    ok(twitter.getBody() + typesafe.getBody())));
-                        }
-                </script>
-            </section>
-
-
-            <!-- this indentation is needed to work around a crazy markdown bug -->
-            <section data-markdown>
-                <script type="text/template">
-                    ### Reactive Composition with scala-async
-                            
-                    <small>Clean, pseudo-blocking DSL for Reactive composition</small>
-            
-                        def reactiveCompositionAsync: Future[String] {
-                          def fetch(url: String): Future[String] = WS.url(url).get().wrapped()
-                          async {
-                            val body1 = fetch("http://www.twitter.com")
-                            val body2 = fetch("http://www.typesafe.com")
-                            await(body1) + await(body2)
-                          }
-                        }
-                </script>
-            </section>
-
-            <!-- this indentation is needed to work around a crazy markdown bug -->
-            <section data-markdown>
-                <script type="text/template">
-                    ### Reactive Push
-            
-                    <small>Async & Non-Blocking Server to Client Push</small>
-                    
-                    <small>Java Controller</small>
-                    
-                        public static Result events() {
-                            EventSource eventSource = new EventSource() {
-                                public void onConnected() {
-                                    sendData("hello");
-                                }
-                            };
-                            return ok(eventSource);
-                        }
-                    
-                    <small>CoffeeScript Client</small>
-                            
-                        events = new EventSource("/events")
-                        events.onmessage = (e) ->
-                            alert(e.data)
-                </script>
-            </section>
-
-            <!-- this indentation is needed to work around a crazy markdown bug -->
-            <section data-markdown>
-                <script type="text/template">
-                    ### 2-Way Reactive with WebSockets
-            
-                    <small>Bi-directional reactive push</small>
-                    
-                    <small>Java Controller with Java 8 Method Reference</small>
-                    
-                        public static WebSocket<String> echo() {
-                            return new WebSocket<String>() {
-                                public void onReady(final In<String> in, final Out<String> out) {
-                                    in.onMessage(out::write);
-                                }
-                            };
-                        }
-                    
-                    <small>CoffeeScript Client</small>
-                                
-                        ws = new WebSocket("ws://localhost:9000/echo")
-                        ws.onmessage = (message) ->
-                            console.log(message.data)
-                        ws.onopen = () ->
-                            ws.send("foo")
-                </script>
-            </section>
-    
-    
-    <section data-markdown>
-        <script type="text/template">
-            ### Akka - Actor-based Concurrency & Clustering
-    
-            <img src="assets/akka-actors.png" style="background-color: #ffffff; width: 700px;">
-    
-            * Event-Driven
-            * Non-request based lifecycle
-            * Managed Concurrency
-            * Isolated Failure Handling (Supervision)
-            * Scales up & out
-        </script>
+        </ul>
     </section>
 
-            <!-- this indentation is needed to work around a crazy markdown bug -->
-            <section data-markdown>
-                <script type="text/template">
-                    ### Actors with Lambdas
-        
-                        public static class Greeter extends AbstractActor {
-                            String greeting = "";
-                
-                            @Override public PartialFunction<Object, BoxedUnit> receive() {
-                                return ReceiveBuilder.
-                                    match(WhoToGreet.class, message -> greeting = "hello, " + message.who).
-                                    match(Greet.class, message -> sender().tell(new Greeting(greeting), self())).
-                                    matchAny(this::unhandled).
-                                    build();
-                            }
-                        }
-                </script>
-            </section>
-    
-    <section data-markdown>
-        <script type="text/template">
-            ### Demo: Reactive Stocks (Java 8)
-    
-            * Get the Activator Template: <a href="https://typesafe.com/activator/template/reactive-stocks-java8">https://typesafe.com/activator/template/reactive-stocks-java8</a>
-            * Akka Actors for thread-safe state and non-request based events
-            * Play Framework for Reactive Composition, Reactive Push, and a JavaScript UI
-        </script>
+    <section>
+        <h2>Stabler: Macros / Reflection</h2>
+        <ul>
+            <li><a href="https://issues.scala-lang.org/browse/SI-6240">SI-6240</a> Thread safety of reflection API.</li>
+            <li><a href="https://issues.scala-lang.org/browse/SI-8063">SI-8063</a> Expose much needed methods in public reflection/macro API.</li>
+            <li><a href="http://docs.scala-lang.org/overviews/macros/changelog211.html">Full changelog / migration guide</a></li>
+            <li>But: still designated as experimental</li>
+        </ul>
     </section>
 
-    <section data-markdown>
-        <script type="text/template">
-            ### The Future is the Reactive JVM
-            * JVM is the best foundation for modern, reactive software
-            * Healthy choice of two statically typed languages
-            * Prediction: ThreadLocal backed frameworks will become a legacy burden
-            * Prediction: Node.JS running on JVM/Nashorn to bridge to JVM ecosystem
-            * Prediction: Expect innovation around Reactive Streams in 2014
-        </script>
+    <section>
+        <h2>Themes for next 12 months</h2>
+        <ul>
+            <li>
+              <p>Java 8</p>
+              <ul>
+                <li><code>invokedynamic</code> based lambdas</li>
+                <li>Default methods for traits</li>
+              </ul>
+            </li>
+            <li>
+              <p>Scala for everyone</p>
+              <ul>
+                <li>More docs, tutorials, samples</li>
+                <li>compiler-as-a-platform for type-aware lint tools</li>
+                <li>faster compiler (which everyone wants!)</li>
+              </ul>
+            </li>
+        </ul>
     </section>
-
 </div>
 
 </div>
