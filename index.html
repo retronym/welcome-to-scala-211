@@ -185,11 +185,39 @@
             <li class="fragment0">Modules are plain-old-SBT projects in dedicated git repos</li>
             <ul>
                 <li class="fragment0">Lowers barriers to contribution</li>
+                <li class="fragment0">Lowers barriers to new modules</li>
             </ul>
-
-            <li class="fragment0">Sample <a href="https://github.com/scala/scala-module-dependency-sample‎
-">build configuration</a> for Maven and SBT</li>
         </ul>
+    </section>
+
+    <section>
+        <h2>New module: <a href="http://lampwww.epfl.ch/~hmiller/pickling/">scala-pickling</a></h2>
+<pre><code class="scala">
+import scala.pickling._
+import json._
+
+// Pickle to a JSON string
+val pckl = List(1, 2, 3, 4).pickle
+
+// Unpickling is just as easy:
+val lst = pckl.unpickle[List[Int]]
+</code></pre>
+<p>Status: incubating</p>
+    </section>
+
+    <section>
+        <h2>New module: <a href="https://github.com/scala/async/">scala-async</a></h2>
+<pre><code class="scala">
+import ExecutionContext.Implicits.global
+import scala.async.Async.{async, await}
+
+val future = async {
+  val f1 = async { ...; true }
+  val f2 = async { ...; 42 }
+  if (await(f1)) await(f2) else 0
+}
+</code></pre>
+<p>Status: hatched!</p>
     </section>
 
     <section>
