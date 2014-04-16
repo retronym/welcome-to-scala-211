@@ -36,6 +36,10 @@
             bottom: auto;
             top: 0px;
         }
+
+        .reveal .slides section .fragment.hide.visible {
+            display: none;
+        }
     </style>
 
 </head>
@@ -43,22 +47,23 @@
 <body>
 
 <aside style="display: block; position: fixed; bottom: 5px; left: 10px; z-index: 30;">
-    <a href="http://typesafe.com"><img src="assets/logo.png"></a>
+    <a href="http://typesafe.com"><img src="assets/typesafe-logo-reverse.svg"></a>
 </aside>
 
 <aside style="display: block; position: fixed; bottom: 10px; right: 10px; z-index: 30;">
-    <a href="https://twitter.com/typesafe" class="twitter-follow-button" data-show-count="false" data-lang="en" data-size="large">Follow @typesafe</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<a href="https://twitter.com/scala_lang" class="twitter-follow-button" data-show-count="false">Follow @scala_lang</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
 </aside>
 
 <div class="reveal">
 
 <div class="slides">
     <section>
-        <h2>Welcome to Scala 2.11</h2>
+        <h2><img style="vertical-align:middle;border:none;padding:-20px;height:150px" src="assets/scala-spiral-all-white.png"/><span>  Scala 2.11</span></h2>
 
         <p>
-            Jason Zaugg, Scala Team
+            Jason Zaugg
         </p>
         <p>
             <a href="http://twitter.com/retronym">@retronym</a>
@@ -74,9 +79,19 @@
     <section>
         <h2>2.11 Themes</h2>
         <ul>
-            <li class="fragment0">Faster</li>
-            <li class="fragment0">Smaller</li>
-            <li class="fragment0">More stable</li>
+            <li class="fragment">Faster</li>
+            <li class="fragment">Smaller</li>
+            <li class="fragment fade-in">
+                <div style="position:relative" class="fragment fade-out hide">More stable</div>
+                <div style="position:relative" class="fragment fade-in">Stabler!</div>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>2.11 Non-Themes</h2>
+        <ul>
+            <li class="fragment">New language features</li>
         </ul>
     </section>
 
@@ -104,12 +119,13 @@
     </section>
 
     <section>
-        <h2>Faster: Batch Compilation</h2>
-        For early adopters: faster compiler backend
+        <h2>Faster: Backend Renovations</h2>
+        <p/>
         <ul>
-            <li class="fragment0"><code>-Ybackend:GenBCode</code>: streamlined, paralellizable</li>
-            <li class="fragment0"><code>-Ydelambdafy:method</code>: smarter compilation of lambdas</li>
-            <li class="fragment0">Improvements scheduled for 2.11.x</li>
+            <li class="fragment0"><code>-Ybackend:GenBCode</code> streamlined, paralellizable. <a href="http://magarciaepfl.github.io/scala/">Details</a></li>
+            <li class="fragment0"><code>-Ydelambdafy:method</code> smarter compilation of lambdas</li>
+            <li class="fragment0">Currently only for early adopters</li>
+            <li class="fragment0">Improvements scheduled for 2.11.{1, 2}</li>
             <li class="fragment0">Enabled by default in 2.12</li>
         </ul>
     </section>
@@ -134,24 +150,24 @@
     </section>
 
     <section>
-        <h2>Faster: Batch compilations</h2>
+        <h2>Faster: Batch compilation</h2>
         <ul>
             <li class="fragment0">
-              <a href="http://github.com/scala/scala/pull/2335">#2335</a>
-              <a href="http://github.com/scala/scala/pull/2925">#2925</a>
-              <a href="http://github.com/scala/scala/pull/3084">#3084</a>
-              <a href="http://github.com/scala/scala/pull/3089">#3089</a>
-              <a href="http://github.com/scala/scala/pull/3095">#3095</a>
-              <a href="http://github.com/scala/scala/pull/3444">#3444</a>
-              <a href="http://github.com/scala/scala/pull/3447">#3447</a>
-              <a href="http://github.com/scala/scala/pull/3448">#3448</a>
-              <a href="http://github.com/scala/scala/pull/3449">#3449</a>
-              <a href="http://github.com/scala/scala/pull/3445">#3445</a>
-              <a href="http://github.com/scala/scala/pull/3494">#3494</a>
-              <a href="http://github.com/scala/scala/pull/3494">#3552</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/2335">#2335</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/2925">#2925</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/3084">#3084</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/3089">#3089</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/3095">#3095</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/3444">#3444</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/3447">#3447</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/3448">#3448</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/3449">#3449</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/3445">#3445</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/3494">#3494</a>
+              <a class="fragment" href="http://github.com/scala/scala/pull/3494">#3552</a>
             </li>
-            <li class="fragment0">10-20% improvement</li>
-            <li class="fragment0">The battle of inches will be continued in 2.11.x.</li>
+            <li class="fragment">10-20% improvement</li>
+            <li class="fragment">The battle of inches will be continued in 2.11.x.</li>
         </ul>
     </section>
 
@@ -162,7 +178,7 @@
 
             <li class="fragment0">Modules are plain-old-SBT projects in dedicated git repos</li>
             <ul>
-                <li class="fragment0">Fosters community contributions</li>
+                <li class="fragment0">Lowers barriers to contribution</li>
             </ul>
 
             <li class="fragment0">Sample <a href="https://github.com/scala/scala-module-dependency-sample‎
@@ -173,20 +189,37 @@
     <section>
         <h2>Smaller: Collections</h2>
         <ul>
-            <li class="fragment0"><a href="http://github.com/scala/scala/commit/3cc99d7b4aa43b1b06cc837a55665896993235fc">Deprecates</a> parts of collections known to be problematic (<code>*Proxy</code>, <code>Synchronized*</code>, <code>*Forwarder</code>, <code>s.c.script._</code>, <code>Immutable*Adaptor</code></li>
+            <li class="fragment0"><a href="http://github.com/scala/scala/commit/3cc99d7b4aa43b1b06cc837a55665896993235fc">Deprecate</a> areas known to be problematic
+              <ul><li><code>*Proxy</code>, <code>Synchronized*</code>, <code>*Forwarder</code>, <code>s.c.script._</code>, <code>Immutable*Adaptor</code></li></ul>
+            </li>
 
-            <li class="fragment0"><a href="http://github.com/scala/scala/commit/3cc99d7b4aa43b1b06cc837a55665896993235fc">Deprecates</a> overriding or inheritance from parts of the collections that were not safe extension points</li>
+            <li class="fragment0"><a href="http://github.com/scala/scala/commit/3cc99d7b4aa43b1b06cc837a55665896993235fc">Deprecate</a> overriding or inheritance from parts of the collections that were not safe extension points</li>
 
-            <li class="fragment0"><a href="https://github.com/scala/scala/pull/3191">Remove views over parallel collection</a> to simplify the heirarchy and enable <a href="https://github.com/scala/scala/pull/3191">important bug fixes.</a></li>
+            <li class="fragment0"><a href="https://github.com/scala/scala/pull/3191">Remove parallel views</a> to simplify the hierarchy
+              <ul><li>enabling <a href="https://github.com/scala/scala/pull/3191">important bug fixes.</a></li></ul>
+            </li>
         </ul>
     </section>
 
     <section>
         <h2>Smaller: Compiler</h2>
         <ul>
-            <li class="fragment0">Removed the experimental support for targetting .NET</li>
+            <li class="fragment0">Enforce modularity for REPL, presentation compiler, Scaladoc</a></li>
+            <li class="fragment0">Removed the experimental .NET support</li>
             <li class="fragment0">Remove legacy pattern matcher, bytecode emitter</li>
             <li class="fragment0">Search and destroy mission for ~5000 chunks of dead code. <a href="https://github.com/scala/scala/pull/1648/files">#1648</a></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Stabler: Infrastructure</h2>
+        <ul>
+            <li>PR validation now tests integration with sbt and Scala IDE.</li>
+            <li class="fragment0"><a href="https://github.com/scala/scala/pull/2290">Cleaner build</a> in preparation for a move to sbt in 2.12
+            <ul><li>already the <a href="https://github.com/scala/sbt-scala-modules">standard</a> for the new modules</li></ul>
+            </li>
+            <li>simplified building a <a href="https://github.com/scala/scala-dist/pull/120">Scala distribution</a></li>
+            <li class="fragment0">improved our <a href="https://github.com/scala/jenkins-scripts/blob/master/job/scala-release-2.11.x">release automation</a></li>
         </ul>
     </section>
 
@@ -194,7 +227,7 @@
         <h2>Stabler: Community Build</h2>
         <ul>
             <li class="fragment0">Idea: use the open source ecosystem as a regression suite</li>
-            <li class="fragment0">Tooling rewires depenedencies of builds</li>
+            <li class="fragment0">Tooling rewires dependencies of builds</li>
             <li class="fragment0"><a href="https://jenkins-dbuild.typesafe.com:8499/job/Community-2.11.x/">Daily build</a> of almost 1M LOC (specs, scalatest, akka, play, slick, shapeless, spray ...)</li>
             <li class="fragment0">Helped us spot critical bugs before the release</li>
         </ul>
@@ -203,23 +236,53 @@
     <section>
         <h2>Stabler: Bug fixin'</h2>
         <ul>
-            <li><a href="https://issues.scala-lang.org/issues/?jql=project%20%3D%20SI%20and%20fixVersion%20%3E%3D%20%22Scala%202.11.0-M1%22%20and%20fixVersion%20%3C%3D%20%22Scala%202.11.0-RC4%22%20and%20resolution%20%3D%20fixed">613</a> tickets closed exclusive to 2.11.0</li>
             <li><a href="https://issues.scala-lang.org/browse/SI-261">SI-261 (!)</a> private vals in traits depend on composition order</li>
-            
+
+            <li><a href="https://issues.scala-lang.org/browse/SI-3452">SI-3452</a>Java interop: wrong generic signatures</li>
             <li><a href="https://issues.scala-lang.org/browse/SI-7296">SI-7296</a> Case classes with &gt; 22 parameters are now allowed.</li>
+            <li>Plug holes in soundness checks <a href="https://issues.scala-lang.org/browse/SI-7872">SI-7872</a> <a href="https://issues.scala-lang.org/browse/SI-7756">SI-7756</a></li>
             <li><a href="https://issues.scala-lang.org/browse/SI-3346">SI-3346</a> Implicit arguments of implicit conversions now guide type inference.</li>
-            <li><a href="https://github.com/scala/scala/pull/3037">#3037</a> Experimental support for SAM synthesis.</li>
-            
+            <li><a href="https://issues.scala-lang.org/issues/?jql=project%20%3D%20SI%20and%20fixVersion%20%3E%3D%20%22Scala%202.11.0-M1%22%20and%20fixVersion%20%3C%3D%20%22Scala%202.11.0-RC4%22%20and%20resolution%20%3D%20fixed">613</a> tickets closed exclusive to 2.11.0</li>       
         </ul>
     </section>
 
     <section>
         <h2>Stabler: Macros / Reflection</h2>
         <ul>
+            <li>Added <a href="http://docs.scala-lang.org/overviews/macros/quasiquotes.html">quasiquotes</a> as a higher-level API for trees</li>
             <li><a href="https://issues.scala-lang.org/browse/SI-6240">SI-6240</a> Thread safety of reflection API.</li>
             <li><a href="https://issues.scala-lang.org/browse/SI-8063">SI-8063</a> Expose much needed methods in public reflection/macro API.</li>
             <li><a href="http://docs.scala-lang.org/overviews/macros/changelog211.html">Full changelog / migration guide</a></li>
             <li>But: still designated as experimental</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Upgrade Tips: Before you upgrade</h2>
+        <ol>
+            <li>Address deprecation warnings you encounter against 2.10</li>
+            <li>Consider moving to the latest 2.10 releases of your open source libraries</li>
+        </ol>
+    </section>
+    <section>
+        <h2>Upgrade Tips: Switch to 2.11</h2>
+        <ul>
+        <li>Update to 2.11 builds of your dependencies
+            <ul>
+              <li>e.g. Search for `scalatest_2.11` in <a href="https://oss.sonatype.org/#nexus-search;quick~scalatest_2.11">Sonatype</a></li>
+            </ul>
+        </li>
+        <li>
+          Using XML (literals/library), Swing, Parsers?
+          <ul>
+              <li>Add dependencies on those libraries. <a href="https://github.com/scala/scala-module-dependency-sample‎
+">Sample</a></li>
+          </ul>
+        </li>
+        <li>Take note of new deprecation warnings issued under 2.11</li>
+        <li>Problems? Ask on <a href="https://groups.google.com/forum/#!forum/scala-user">scala-user</a>
+        or <a href="http://stackoverflow.com/tags/scala/info">Stack Overflow</a>.
+        </li>
         </ul>
     </section>
 
@@ -229,8 +292,9 @@
             <li>
               <p>Java 8</p>
               <ul>
-                <li><code>invokedynamic</code> based lambdas</li>
+                <li><code>invokedynamic</code> <a href="https://github.com/retronym/scala/compare/topic;invoke-dynamic-lambda">based lambdas</a></li>
                 <li>Default methods for traits</li>
+                <li>Scala functions as SAMs (<a href="https://github.com/scala/scala/pull/3037"><code>-Xexperimental</code>-lly in 2.11.0)</a></li>
               </ul>
             </li>
             <li>
@@ -239,7 +303,33 @@
                 <li>More docs, tutorials, samples</li>
                 <li>compiler-as-a-platform for type-aware lint tools</li>
                 <li>faster compiler (which everyone wants!)</li>
+                <li>Easier scala version upgrades</li>
               </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Get Involved!</h2>
+        <ul>
+            <li>Try out Scala right now <a href="http://typesafe.com/activator/template/hello-scala">Typesafe Activator</a></li>
+            <li>Download a distribution from <a href="http://scala-lang.org/download/">scala-lang.org</a></li>
+            <li>
+<span>
+                <a href="https://twitter.com/scala_lang" class="twitter-follow-button" data-show-count="true">Follow @scala_lang</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><span> </span>
+</span>
+<span>
+<a href="https://twitter.com/typesafe" class="twitter-follow-button" data-show-count="true">Follow @typesafe</a>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</span>
+            </li>
+            <li>Join our <a href="http://scala-lang.org/community/">mailing list</a> or find a local user group</li>
+            <li>Sign up for a free Coursera class: <a href="https://www.coursera.org/course/progfun">FP in Scala</a> or <a href="https://www.coursera.org/course/reactive">Reactive</a> Programming</li>
+            <li>Become a <a href="http://scala-lang.org/contribute/">contributor</a> to Scala!</li>
+            <li>Be part of the fifth annual <a href="http://www.scaladays.org/">Scala Days</a>
             </li>
         </ul>
     </section>
